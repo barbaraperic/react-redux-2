@@ -1,28 +1,39 @@
-const createStore = (reducer) => {
-  let state
+import { createStore } from 'redux';
+import rootReducers from './reducers'
 
-  let listeners = []
+const store = createStore(rootReducers)
 
-  const getState = () => state
+export default store
 
-  const subscribe = (listener) => {
-    listeners.push(listener)
-    return () => {
-      listeners.filter(l => l !== listener)
-    }
-  }
+console.log('store', store)
 
-  const dispatch = (action) => {
-    state = reducer(state, action)
-    listeners.forEach(listener => listener())
-  }
 
-  return {
-    getState,
-    subscribe,
-    dispatch
-  }
 
-}
+// const createStore = (reducer) => {
+//   let state
 
-export const store = createStore()
+//   let listeners = []
+
+//   const getState = () => state
+
+//   const subscribe = (listener) => {
+//     listeners.push(listener)
+//     return () => {
+//       listeners.filter(l => l !== listener)
+//     }
+//   }
+
+//   const dispatch = (action) => {
+//     state = reducer(state, action)
+//     listeners.forEach(listener => listener())
+//   }
+
+//   return {
+//     getState,
+//     subscribe,
+//     dispatch
+//   }
+
+// }
+
+// export const store = createStore()

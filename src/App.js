@@ -1,24 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { addTodo } from './actions/todo'
+
+
+const generateId = () => {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
 
 function App() {
+  const [ todo, setTodo ] = useState('')
+  const dispatch = useDispatch()
+  const item = useSelector(state => state)
+
+  // console.log('todo', todo)
+  console.log('item', item)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // console.log('e', e)
+    dispatch(addTodo({
+      id: generateId(),
+      todo
+    }))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <div>
+        <h2>Todo</h2>
+        <form onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            placeholder="Add todo"
+            onChange={(e) => setTodo(e.target.value)}
+            value={todo}
+          />
+          <button 
+            type="submit"
+            >
+              Submit todo
+          </button>
+        </form>
+      </div>
+      <div>
+        <h2>Goal</h2>
+        <input type="text" placeholder="Add goal"/>
+        <button type="submit">Submit goal</button>
+      </div>
+
+    </React.Fragment>
   );
 }
 

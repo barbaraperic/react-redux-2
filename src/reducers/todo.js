@@ -5,7 +5,7 @@ import {
   TOGGLE_TODO
 } from '../actions/types'
 
-export const todos = (state =[], action) => {
+export const todos = (state = [], action) => {
   switch(action.type) {
     case ADD_TODO:
       return state.concat([action.todo])
