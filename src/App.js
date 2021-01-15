@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addTodo } from './actions/todo'
-import { addGoal } from './actions/goal'
+import { addTodo, removeTodo } from './actions/todo'
+import { addGoal, removeGoal } from './actions/goal'
 
 const generateId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -25,6 +25,10 @@ function App() {
     setTodo('')
   }
 
+  const handleRemoveTodo = (id) => {
+    dispatch(removeTodo(id))
+  }
+
   const handleGoalSubmit = (e) => {
     e.preventDefault()
     dispatch(addGoal({
@@ -32,6 +36,10 @@ function App() {
       goal
     }))
     setGoal('')
+  }
+
+  const handleRemoveGoal = (id) => {
+    dispatch(removeGoal(id))
   }
 
   return (
@@ -49,7 +57,10 @@ function App() {
         </form>
         <ul>
           {todoItems.map(item => (
-            <li key={item.id}>{item.todo}</li>
+            <div style={{ display: 'flex' }} key={item.id}>
+              <li >{item.todo}</li>
+              <button onClick={() => handleRemoveTodo(item.id)}>X</button>
+            </div>
           ))}
         </ul>
       </div>
@@ -66,7 +77,10 @@ function App() {
         </form>
         <ul>
           {goalItems.map(item => (
-            <li key={item.id}>{item.goal}</li>
+            <div style={{ display: 'flex'}} key={item.id}>
+              <li >{item.goal}</li>
+              <button onClick={() => handleRemoveGoal(item.id)}>X</button>
+            </div>
           ))}
         </ul>
       </div>
