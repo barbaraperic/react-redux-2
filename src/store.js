@@ -1,11 +1,20 @@
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import rootReducers from './reducers'
 
-const store = createStore(rootReducers)
+const logger = (store) => (next) => (action) => {
+  console.group(action.type)
+  console.log('The action is', action)
+  const result = next(action)
+  console.log('the next state', store.getState())
+  console.groupEnd()
+  return result
+}
+
+const store = createStore(rootReducers, applyMiddleware(logger))
 
 export default store
 
-console.log('store', store)
+console.log('store',)
 
 
 
