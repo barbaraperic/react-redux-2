@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addTodo, removeTodo } from './actions/todo'
+import { addTodo, removeTodo, toggleTodo } from './actions/todo'
 import { addGoal, removeGoal } from './actions/goal'
 
 const generateId = () => {
@@ -42,12 +42,17 @@ function App() {
     dispatch(removeGoal(id))
   }
 
+  const handleToggle = (id) => {
+    dispatch(toggleTodo(id))
+  }
+
   return (
     <React.Fragment>
       <div>
         <h2>Todo</h2>
         <form onSubmit={handleTodoSubmit}>
-          <input 
+          
+          <input
             type="text" 
             placeholder="Add todo"
             onChange={(e) => setTodo(e.target.value)}
@@ -58,7 +63,12 @@ function App() {
         <ul>
           {todoItems.map(item => (
             <div style={{ display: 'flex' }} key={item.id}>
-              <li >{item.todo}</li>
+              <li 
+                onClick={() => handleToggle(item.id)}
+                style={ item.complete ? { textDecorationLine: 'line-through' } : {}}
+              >
+                {item.todo}
+              </li>
               <button onClick={() => handleRemoveTodo(item.id)}>X</button>
             </div>
           ))}
@@ -78,7 +88,7 @@ function App() {
         <ul>
           {goalItems.map(item => (
             <div style={{ display: 'flex'}} key={item.id}>
-              <li >{item.goal}</li>
+              <li>{item.goal}</li>
               <button onClick={() => handleRemoveGoal(item.id)}>X</button>
             </div>
           ))}
