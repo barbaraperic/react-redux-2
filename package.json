@@ -13,6 +13,11 @@
     "redux": "^4.0.5",
     "web-vitals": "^0.2.4"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
