@@ -7,9 +7,7 @@ import { addTodo, removeTodo, toggleTodo } from '../actions/todo'
 import List from './List'
 
 const Todos = ({ todos }) => {
-
   const [ todo, setTodo ] = useState('')
-
   const dispatch = useDispatch()
 
   const handleAddTodo = (e) => {

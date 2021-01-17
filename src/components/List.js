@@ -15,7 +15,7 @@ const List = (props) => {
             onClick={() => toggle(item.id)}
             style={ item.complete ? { textDecorationLine: 'line-through' } : {}}
           >
-            {item.todo}
+            {item.name}
           </li>
           <button onClick={() => remove(item.id)}>X</button>
         </div>

@@ -7,9 +7,7 @@ import { addGoal, removeGoal } from '../actions/goal'
 import List from './List'
 
 const Goals = ({ goals }) => {
-  
   const [ goal, setGoal ] = useState('')
-
   const dispatch = useDispatch()
 
   const handleGoalSubmit = (e) => {
