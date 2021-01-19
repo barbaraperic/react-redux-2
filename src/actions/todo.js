@@ -26,3 +26,15 @@ export const toggleTodo = (id) => {
     id
   }
 }
+
+export const handleDeleteTodo = (todo) => {
+  return (dispatch) => {
+    dispatch(removeTodo(todo.id))
+
+    return window.API.deleteTodo(todo.id)
+      .catch(() => {
+        dispatch(addTodo(todo))
+        alert("There was an error. Try again")
+      })
+  }
+}

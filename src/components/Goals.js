@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 // import { generateId } from '../helper/generateId'
-import { addGoal, removeGoal } from '../actions/goal'
+import { handleAddGoal, handleDeleteGoal } from '../actions/goal'
 
 import List from './List'
 
@@ -13,19 +13,11 @@ const Goals = ({ goals }) => {
   const handleGoalSubmit = (e) => {
     e.preventDefault()
 
-    return window.API.saveGoal(goal)
-    .then((res) => {
-      dispatch(addGoal(res))
-      setGoal('')
-    })
-    .catch(() => alert("There was an error. Try again."))
+    dispatch(handleAddGoal(goal, () => setGoal('')))
   }
 
   const handleRemoveGoal = (goal) => {
-    dispatch(removeGoal(goal.id))
-    
-    return window.API.deleteGoal(goal.id)
-    .catch(() => addGoal(goal))
+    dispatch(handleDeleteGoal(goal))
   }
 
   return (

@@ -10,7 +10,15 @@ const logger = (store) => (next) => (action) => {
   return result
 }
 
-const store = createStore(rootReducers, applyMiddleware(logger))
+const thunk = (store) => (next) => (action) => {
+  if (typeof action === 'function') {
+    return action(store.dispatch)
+  } else {
+    return next(action)
+  }
+}
+
+const store = createStore(rootReducers, applyMiddleware(thunk, logger))
 
 export default store
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 // import { generateId } from '../helper/generateId'
-import { addTodo, removeTodo, toggleTodo } from '../actions/todo'
+import { addTodo, handleDeleteTodo, toggleTodo } from '../actions/todo'
 
 import List from './List'
 
@@ -22,10 +22,7 @@ const Todos = ({ todos }) => {
   }
 
   const handleRemoveTodo = (todo) => {
-    dispatch(removeTodo(todo.id))
-
-    return window.API.deleteTodo(todo.id)
-      .catch(() => addTodo(todo))
+    dispatch(handleDeleteTodo(todo))
   }
 
   const handleToggleTodo = (id) => {
