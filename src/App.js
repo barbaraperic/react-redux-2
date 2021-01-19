@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Todos from './components/Todos'
 import Goals from './components/Goals'
 import Loading from './components/Loading'
 
-import { receiveActionData } from './actions/fetchAPI'
+import { handleInitialData } from './actions/fetchAPI'
 
 function App() {
 
@@ -16,12 +16,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    Promise.all([
-      window.API.fetchTodos(),
-      window.API.fetchGoals()
-    ]).then(([ todos, goals ]) => {
-      dispatch(receiveActionData(todos, goals))
-    })
+    dispatch(handleInitialData())
   })
 
   if (loading) {

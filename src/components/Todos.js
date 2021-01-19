@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 // import { generateId } from '../helper/generateId'
-import { addTodo, handleDeleteTodo, toggleTodo } from '../actions/todo'
+import { handleAddTodo, handleDeleteTodo, handleToggleTodo } from '../actions/todo'
 
 import List from './List'
 
@@ -10,35 +10,24 @@ const Todos = ({ todos }) => {
   const [ todo, setTodo ] = useState('')
   const dispatch = useDispatch()
 
-  const handleAddTodo = (e) => {
+  const addTodo = (e) => {
     e.preventDefault()
 
-    return window.API.saveTodo(todo)
-    .then((res) => {
-      dispatch(addTodo(res))
-      setTodo('')
-    })
-    .catch(() => alert("There was an error. Try again."))
+    dispatch(handleAddTodo(todo, () => setTodo('')))
   }
 
-  const handleRemoveTodo = (todo) => {
+  const removeTodo = (todo) => {
     dispatch(handleDeleteTodo(todo))
   }
 
-  const handleToggleTodo = (id) => {
-    dispatch(toggleTodo(id))
-
-    return window.API.saveTodoToggle(id)
-    .catch(() => {
-      dispatch(toggleTodo(id))
-      alert('An error occurred. Try again.')
-    })
+  const toggleTodo = (id) => {
+    dispatch(handleToggleTodo(id))
   }
 
   return (
     <React.Fragment>
       <h2>Todo</h2>
-      <form onSubmit={handleAddTodo}>
+      <form onSubmit={addTodo}>
         <input
           type="text" 
           placeholder="Add todo"
@@ -49,8 +38,8 @@ const Todos = ({ todos }) => {
       </form>
       <List 
         items={todos}
-        remove={handleRemoveTodo}
-        toggle={handleToggleTodo}
+        remove={removeTodo}
+        toggle={toggleTodo}
       />
     </React.Fragment>
   )

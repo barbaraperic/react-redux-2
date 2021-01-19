@@ -38,3 +38,26 @@ export const handleDeleteTodo = (todo) => {
       })
   }
 }
+
+export const handleAddTodo = (name, cb) => {
+  return (dispatch) => {
+    return window.API.saveTodo(name)
+    .then((res) => {
+      dispatch(addTodo(res))
+      cb()
+    })
+    .catch(() => alert("There was an error. Try again."))
+  }
+}
+
+export const handleToggleTodo = (id) => {
+  return (dispatch) => {
+    dispatch(toggleTodo(id))
+
+    return window.API.saveTodoToggle(id)
+    .catch(() => {
+      dispatch(toggleTodo(id))
+      alert('An error occurred. Try again.')
+    })
+  }
+}

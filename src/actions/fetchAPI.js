@@ -7,3 +7,14 @@ export const receiveActionData = (todos, goals) => {
     goals
   }
 }
+
+export const handleInitialData = () => {
+  return (dispatch) => {
+    Promise.all([
+      window.API.fetchTodos(),
+      window.API.fetchGoals()
+    ]).then(([ todos, goals ]) => {
+      dispatch(receiveActionData(todos, goals))
+    })
+  }
+}
