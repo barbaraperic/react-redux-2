@@ -17,7 +17,7 @@ const List = (props) => {
           >
             {item.name}
           </li>
-          <button onClick={() => remove(item.id)}>X</button>
+          <button onClick={() => remove(item)}>X</button>
         </div>
       ))}
     </ul>
