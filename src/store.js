@@ -1,5 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import rootReducers from './reducers'
+import thunk from "redux-thunk";
+
 
 const logger = (store) => (next) => (action) => {
   console.group(action.type)
@@ -10,15 +12,17 @@ const logger = (store) => (next) => (action) => {
   return result
 }
 
-const thunk = (store) => (next) => (action) => {
-  if (typeof action === 'function') {
-    return action(store.dispatch)
-  } else {
-    return next(action)
-  }
-}
+const middleware = [thunk, logger]
 
-const store = createStore(rootReducers, applyMiddleware(thunk, logger))
+// const thunk = (store) => (next) => (action) => {
+//   if (typeof action === 'function') {
+//     return action(store.dispatch)
+//   } else {
+//     return next(action)
+//   }
+// }
+
+const store = createStore(rootReducers, applyMiddleware(...middleware))
 
 export default store
 
